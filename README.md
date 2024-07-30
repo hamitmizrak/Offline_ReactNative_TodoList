@@ -1,7 +1,7 @@
 # React Native
 [GitHub](https://github.com/hamitmizrak/Offline_ReactNative_TodoList)
 ---
-
+$ npx react-native start
 
 
 ---
