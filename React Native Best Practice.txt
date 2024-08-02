@@ -158,6 +158,8 @@ $ npm uninstall -g react-native-cli
 
 $ npm install -g typescript
 $ npm install -g npm
+$ npm install http-server -g (terminalde ==> http-server)
+
 
 
 $ choco install -y nodejs.install python2
@@ -173,9 +175,17 @@ $ npx react-native init ReactNativeTodoList
 $ cd ReactNativeTodoList/
 $ ls -al
 $ code .
-$ npx react-native start
+$ npx react-native start 
+$ npx react-native start --port=6666
 $ a => android istiyorsam
 $ i => android istiyorsam
+
+veya
+$ npx react-native start 
+$ npx react-native start --port=6666
+$ npm run start 
+$ npx react-native run-android
+
 
 * What went wrong:
 java.io.UncheckedIOException: Could not move temporary workspace
@@ -191,12 +201,38 @@ zipStorePath=wrapper/dists
 `
 $ Ctrl+C
 $ npx react-native start
-
-
 $  cd "D:\1_Kodlar\React Native\ReactNativeTodoList" && npx react-native run-android
-
 $ npx react-native run-android
 $ npx react-native doctor
 
 
 
+2.YOL
+-------------------------------
+netstat -ano | findstrt:6666
+taskill /PID ID /F
+npx create-expo-app Deneme2
+npx expo start
+npx expo start --port=9696
+npx expo start --android
+npx expo start --ios
+
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+$ npx react-native start
+
+// Router
+$ npm install @react-navigation/native 
+$ npm install @react-navigation/native-stack
+$ npm install react-native-screens react-native-safe-area-context
+$ npm start -- --reset-cache
+
+$ npx react-native link // Expo kullanmıyorsak elle bağlantı gerektiren durumlarda
+
+$ npm install
+$ npm update
+$ npm start --reset-cache
+
+
+NOT: Android Virtual Device Üzerinde iken R(2 kez) Reload yapıyor.
