@@ -1,3 +1,14 @@
+SNIPPET
+// Snippet: React Native Snippet author: jundat95
+// imp
+// rnc => React Native Class Component
+// rnce => React Native Class Export Component
+// rnpc => React Native Class Export PureComponent Component
+
+// rnf => React Native Function Component
+// rnfe => React Native Function Export Component
+// rnfes => React Native Function Export Component styles
+// rnfs => React Native Function Component styles
 
 ################################################################################################
 ################################################################################################
@@ -245,3 +256,30 @@ npm install react-native-vector-icons --save
 
 android/app/build.gradle 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+
+/*
+Font Vector (IOS)
+Xcode açalım ve Info.plist dosyasına şu satırları ekleyin
+
+<key>UIAppFonts</key>
+<array>
+  <string>AntDesign.ttf</string>
+  <string>Entypo.ttf</string>
+  <string>EvilIcons.ttf</string>
+  <string>Feather.ttf</string>
+  <string>FontAwesome.ttf</string>
+  <string>FontAwesome5_Brands.ttf</string>
+  <string>FontAwesome5_Regular.ttf</string>
+  <string>FontAwesome5_Solid.ttf</string>
+  <string>Foundation.ttf</string>
+  <string>Ionicons.ttf</string>
+  <string>MaterialIcons.ttf</string>
+  <string>MaterialCommunityIcons.ttf</string>
+  <string>SimpleLineIcons.ttf</string>
+  <string>Octicons.ttf</string>
+  <string>Zocial.ttf</string>
+</array>
+*/ 
+
+//"eslint": "^8.19.0",

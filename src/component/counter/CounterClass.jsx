@@ -37,7 +37,7 @@ class CounterClass extends Component {
   deCreaseCounter = () => {
     // Eğer sayac 0'dan küçük olursa, sayacı sıfırla
     if (this.state.counter <= 0) {
-      Alert.alert("Sayaç 0'dan küçük olamaz!");
+      Alert.alert("Counter Class\nSayaç 0'dan küçük olamaz!");
       this.setState({counter: 0});
     } else {
       this.setState(prevState => ({counter: prevState.counter - 1}));
@@ -73,6 +73,7 @@ class CounterClass extends Component {
           {/* 2.YOL AZALTMA */}
           {/* <Button title="Sayaç Azalt" onPress={this.deCreaseCounter} /> */}
         </View>
+
       </View>
     ); //end return
   } //end render
@@ -82,7 +83,6 @@ class CounterClass extends Component {
 export default CounterClass;
 
 ////////////////////////////////////////////////////////////////
-
 // STYLE
 const styles = StyleSheet.create({
   container: {

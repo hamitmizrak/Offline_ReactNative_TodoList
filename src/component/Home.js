@@ -18,6 +18,8 @@ import {
 // COUNTER CLASS; FUNCTION
 import CounterClass from './counter/CounterClass';
 import CounterFunction from './counter/CounterFunction';
+import CounterFunctionHooks from './counter/CounterFunctionHooks';
+
 
 // STACK (CREATE)
 const Stack = createNativeStackNavigator();
@@ -63,6 +65,14 @@ function Home() {
           component={CounterFunction}
           options={{title: 'Counter Function'}}
         />
+
+ {/* Counter Function Hook Component */}
+ <Stack.Screen
+          name="CounterFunctionHooks"
+          component={CounterFunctionHooks}
+          options={{title: 'Counter Function Hooks'}}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -168,7 +178,7 @@ const HomeScreen = ({navigation, route}) => {
               }}
             />
           </TouchableOpacity>
-          <Text style={styles.componentName}>Counter Class Component</Text>
+          <Text style={styles.componentText}>Counter Class Component</Text>
         </View>
 
         {/* Counter Function Component-2 */}
@@ -179,23 +189,23 @@ const HomeScreen = ({navigation, route}) => {
               style={styles.componentImage}
             />
           </TouchableOpacity>
-          <Text style={styles.componentName}>Counter Function Component</Text>
+          <Text style={styles.componentText}>Counter Function Component</Text>
         </View>
 
-        {/* Counter Function Component-2 */}
+        {/* Counter Function Component-3 Hooks */}
         <View style={styles.componentCard}>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('CounterFunctionName', {
-                name: 'CounterFunctionName',
+              navigation.navigate('CounterFunctionHooks', {
+                name: 'CounterFunctionHooks',
               })
             }>
             <Image
-              source={require('../assets/profile.webp')}
+              source={require('../assets/hooks.webp')}
               style={styles.componentImage}
             />
           </TouchableOpacity>
-          <Text style={styles.componentName}>Counter Function Component</Text>
+          <Text style={styles.componentText}>Counter Function  Hooks</Text>
         </View>
       </ScrollView>
     </View>
@@ -317,11 +327,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#cccccc', // for testing purposes only
   },
-  componentName: {
+  componentText: {
     position: 'absolute',
     bottom: 10,
     left: 10,
-    color: 'white',
+    color: 'blue',
     fontSize: 13,
   },
 }); // end styles
