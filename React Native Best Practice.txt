@@ -236,3 +236,12 @@ $ npm start --reset-cache
 
 
 NOT: Android Virtual Device Üzerinde iken R(2 kez) Reload yapıyor.
+
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+$ ICON EKLEMEK
+npm install react-native-vector-icons --save
+
+android/app/build.gradle 
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
