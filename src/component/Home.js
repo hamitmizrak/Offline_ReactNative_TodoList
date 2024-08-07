@@ -16,19 +16,25 @@ import {
   Alert,
 } from 'react-native';
 
-// COUNTER CLASS; FUNCTION
-import CounterClass from './counter/CounterClass';
-import CounterFunction from './counter/CounterFunction';
-import CounterFunctionHooks from './counter_hooks/CounterFunctionHooks';
+// Blur View
 import {BlurView} from '@react-native-community/blur';
+
+// COUNTER CLASS
+import CounterClass from './counter/CounterClass';
+
+// COUNTER FUNCTION
+import CounterFunction from './counter/CounterFunction';
+
+// COUNTER FUNCTION HOOKS
+import CounterFunctionHooks from './counter_hooks/CounterFunctionHooks';
+
+// COUNTER FUNCTION HOOKS REDUX CONTEXT PROPS
 import CounterReduxContextPropsFunction from './counter_redux_context_props_function/CounterReduxContextPropsFunction';
 
-// Redux
+// Redux Import
 import {Provider} from 'react-redux';
-// Context Import
-import {CounterProvider} from './counter_redux_context_props_function/CounterContext';
-// Store Redux
 import StoreRedux from './counter_redux_context_props_function/StoreRedux';
+import {CounterProvider} from './counter_redux_context_props_function/CounterContext';
 
 // STACK (CREATE)
 const Stack = createNativeStackNavigator();
@@ -93,10 +99,6 @@ function Home() {
               options={{
                 title: 'Counter Function Redux Context Props Function Hooks',
               }}
-              // initialParams={{
-              //   initialCount: '0',
-              //   modalMessage: 'Sayaç değeri hedefe ulaştı!',
-              // }}
               ></Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>
@@ -266,14 +268,13 @@ const HomeScreen = ({navigation, route}) => {
               navigation.navigate('CounterReduxContextPropsFunctionHooks', {
                 name: 'CounterReduxContextPropsFunctionHooks',
 
-
-                // Passing parameters
+                // (Props) Passing parameters
                 initialCount: '0',
                 modalMessage: 'Sayaç değeri hedefe ulaştı!',
               })
             }>
             <Image
-              source={require('../assets/mobil.webp')}
+              source={require('../assets/redux.webp')}
               style={styles.componentImage}
             />
           </TouchableOpacity>

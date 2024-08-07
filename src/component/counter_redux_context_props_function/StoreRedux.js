@@ -20,6 +20,6 @@ function counterReducer(state = initialState, action) {
 }// end counterReducer
 
 // Mağaza oluşturma
-const store = createStore(counterReducer);
+const StoreRedux = createStore(counterReducer);
 
-export default store;
+export default StoreRedux;

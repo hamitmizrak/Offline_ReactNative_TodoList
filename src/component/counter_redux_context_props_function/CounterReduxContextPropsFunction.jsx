@@ -1,7 +1,7 @@
 // REACT LIBRARIES
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useCounterContext } from './CounterContext';
+import React, {useState, useEffect, useRef, useMemo, useCallback} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {useCounterContext} from './CounterContext';
 
 // REACT NATIVE LIBRARIES
 import {
@@ -11,13 +11,16 @@ import {
   TouchableOpacity,
   ImageBackground,
   Modal,
+  Alert,
 } from 'react-native';
 
 // Vector Icons
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 // Uyarı Kartı Bileşeni
-const AlertCard = ({ visible, onClose, message }) => {
+const AlertCard = ({visible, onClose, message}) => {
   return (
     <Modal
       transparent={true}
@@ -36,23 +39,33 @@ const AlertCard = ({ visible, onClose, message }) => {
   );
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTION COUNTER
-const CounterReduxContextPropsFunction = ({ route  }) => {
+// const CounterReduxContextPropsFunction = ({ initialCount = 0, modalMessage = "Sayaç değeri hedefe ulaştı!" }) => {
+const CounterReduxContextPropsFunction = ({route}) => {
+  /////////////////////////////////////////////////
+  // Props Veri Almak
+  const {initialCount, modalMessage} = route.params;
 
-  // Props Veri almak
-  const { initialCount, modalMessage } = route.params;
-
-
+  /////////////////////////////////////////////////
   // Redux hookları
   const count = useSelector(state => state.count);
   const dispatch = useDispatch();
 
+  /////////////////////////////////////////////////
   // Context hook
-  const { info } = useCounterContext();
+  const {info} = useCounterContext();
 
+  /////////////////////////////////////////////////
+  // UseRef
+  const buttonClickCount = useRef(0); // Bu hooks(kanca) bir bileşenin yaşam döngüsü  boyunca kalır.
+  // useRef: Hooks için referans almak için kullanılır.
+  // useRef: Renderlar arasında kalıcığı sağlar. Bileşenin yeniden render edilmesine neden olmaz.
+
+  /////////////////////////////////////////////////
   // State ve diğer hooklar
   const [isAlertVisible, setIsAlertVisible] = useState(false);
-  const buttonClickCount = useRef(0);
   const targetCount = 5; // Sabit bir hedef değer olarak ayarladık
 
   // useEffect: Sayaç belirli bir değere ulaştığında modal göster
@@ -61,48 +74,66 @@ const CounterReduxContextPropsFunction = ({ route  }) => {
       setIsAlertVisible(true);
     }
     console.log(`Counter Function useEffect Hook: counter ${count}`);
+
     // Konsol log için useRef kullanımı
     console.log(`Button clicked ${buttonClickCount.current} times`);
 
     // Temizleme işlemi örneği
     return () => {
-      console.log("useEffect cleanup");
+      console.log('useEffect cleanup');
     };
   }, [count]);
 
+  /////////////////////////////////////////////////
   // useMemo: Counter değerinin iki katını hesapla
   const doubledValue = useMemo(() => {
     console.log('Calculating doubled value...');
     return count * 2;
   }, [count]);
 
-  // useCallback: Artırma ve azaltma fonksiyonları
+  // useCallback: Artırma
   const handleIncrease = useCallback(() => {
-    dispatch({ type: 'INCREMENT' });
+    dispatch({type: 'INCREMENT'});
     buttonClickCount.current += 1;
   }, [dispatch]);
 
+  /////////////////////////////////////////////////
+  // useCallback: Azaltma fonksiyonları
   const handleDecrease = useCallback(() => {
-    dispatch({ type: 'DECREMENT' });
-    buttonClickCount.current += 1;
-  }, [dispatch]);
+    dispatch({type: 'DECREMENT'});
+    // Eğer sayac 0'dan küçük olursa, sayacı sıfırla
+    if (count <= 0) {
+      Alert.alert("Counter Function\nSayaç 0'dan küçük olamaz!");
+
+      // 1.YOL
+      dispatch({type: 'RESET'}); //sayaçı sıfırla
+      buttonClickCount.current = initialCount; //Buton tıklama sayısını başlangıç değerine getir
+
+      // 2.YOL
+      //handleReset();
+    } else {
+      buttonClickCount.current -= 1;
+    }
+  }, [count, dispatch]);
 
   // Reset fonksiyonu
   const handleReset = () => {
-    dispatch({ type: 'RESET' });
+    dispatch({type: 'RESET'});
     buttonClickCount.current = initialCount;
   };
 
+  /////////////////////////////////////////////////
   // Modal kapatma fonksiyonu
   const closeAlert = () => {
     setIsAlertVisible(false);
   };
 
+  /////////////////////////////////////////////////
   // Return
   return (
-    
+    // ImageBackground
     <ImageBackground
-      source={require('../../assets/device.webp')}
+      source={require('../../assets/redux.webp')}
       style={styles.imageBackground}>
       <View style={styles.container}>
         <Text style={styles.counterText}> Sayaç: {count}</Text>
@@ -111,7 +142,7 @@ const CounterReduxContextPropsFunction = ({ route  }) => {
         <View style={styles.buttonContainer}>
           {/* Artırma */}
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: 'blue' }]}
+            style={[styles.button, {backgroundColor: 'blue'}]}
             onPress={handleIncrease}>
             <Icon name="plus" size={18} color="#fff" />
             <Text style={styles.buttonText}>Artır</Text>
@@ -119,7 +150,7 @@ const CounterReduxContextPropsFunction = ({ route  }) => {
 
           {/* Azaltma */}
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: 'green' }]}
+            style={[styles.button, {backgroundColor: 'green'}]}
             onPress={handleDecrease}>
             <Icon name="minus" size={18} color="#fff" />
             <Text style={styles.buttonText}>Azalt</Text>
@@ -127,7 +158,7 @@ const CounterReduxContextPropsFunction = ({ route  }) => {
 
           {/* Temizle */}
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: 'red' }]}
+            style={[styles.button, {backgroundColor: 'red'}]}
             onPress={handleReset}>
             <Icon name="refresh" size={18} color="#fff" />
             <Text style={styles.buttonText}>Temizle</Text>
@@ -166,7 +197,7 @@ const styles = StyleSheet.create({
   counterText: {
     fontSize: 25,
     marginBottom: 18,
-    color: 'black',
+    color: 'blue',
   },
 
   infoText: {
