@@ -1,4 +1,5 @@
 // IMPORT
+// Navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -18,8 +19,16 @@ import {
 // COUNTER CLASS; FUNCTION
 import CounterClass from './counter/CounterClass';
 import CounterFunction from './counter/CounterFunction';
-import CounterFunctionHooks from './counter/CounterFunctionHooks';
+import CounterFunctionHooks from './counter_hooks/CounterFunctionHooks';
+import {BlurView} from '@react-native-community/blur';
+import CounterReduxContextPropsFunction from './counter_redux_context_props_function/CounterReduxContextPropsFunction';
 
+// Redux
+import {Provider} from 'react-redux';
+// Context Import
+import {CounterProvider} from './counter_redux_context_props_function/CounterContext';
+// Store Redux
+import StoreRedux from './counter_redux_context_props_function/StoreRedux';
 
 // STACK (CREATE)
 const Stack = createNativeStackNavigator();
@@ -29,53 +38,71 @@ const Stack = createNativeStackNavigator();
 // 2.YOL => const Home=()=>{return()}
 function Home() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {/* Home */}
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Anasayfaya Hoşgeldiniz.'}}
-        />
+    // Redux
+    <Provider store={StoreRedux}>
+      {/* Context */}
+      <CounterProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {/* Home */}
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{title: 'Anasayfaya Hoşgeldiniz.'}}
+            />
 
-        {/* Profile */}
-        <Stack.Screen
-          name="ProfileName"
-          component={ProfileScreen}
-          options={{title: 'Profile'}}
-        />
+            {/* Profile */}
+            <Stack.Screen
+              name="ProfileName"
+              component={ProfileScreen}
+              options={{title: 'Profile'}}
+            />
 
-        {/* Device Information */}
-        <Stack.Screen
-          name="DeviceInformationName"
-          component={DeviceInformationScreen}
-          options={{title: 'Device Information'}}
-        />
+            {/* Device Information */}
+            <Stack.Screen
+              name="DeviceInformationName"
+              component={DeviceInformationScreen}
+              options={{title: 'Device Information'}}
+            />
 
-        {/* Counter Class Component */}
-        <Stack.Screen
-          name="CounterClassName"
-          component={CounterClass}
-          options={{title: 'Counter Class'}}
-        />
+            {/* Counter Class Component */}
+            <Stack.Screen
+              name="CounterClassName"
+              component={CounterClass}
+              options={{title: 'Counter Class'}}
+            />
 
-        {/* Counter Function Component */}
-        <Stack.Screen
-          name="CounterFunctionName"
-          component={CounterFunction}
-          options={{title: 'Counter Function'}}
-        />
+            {/* Counter Function Component */}
+            <Stack.Screen
+              name="CounterFunctionName"
+              component={CounterFunction}
+              options={{title: 'Counter Function'}}
+            />
 
- {/* Counter Function Hook Component */}
- <Stack.Screen
-          name="CounterFunctionHooks"
-          component={CounterFunctionHooks}
-          options={{title: 'Counter Function Hooks'}}
-        />
+            {/* Counter Function Hook Component */}
+            <Stack.Screen
+              name="CounterFunctionHooks"
+              component={CounterFunctionHooks}
+              options={{title: 'Counter Function Hooks'}}
+            />
 
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+            {/* Counter Function Redux- Context-Props Hook Component */}
+            <Stack.Screen
+              name="CounterReduxContextPropsFunctionHooks"
+              component={CounterReduxContextPropsFunction}
+              options={{
+                title: 'Counter Function Redux Context Props Function Hooks',
+              }}
+              // initialParams={{
+              //   initialCount: '0',
+              //   modalMessage: 'Sayaç değeri hedefe ulaştı!',
+              // }}
+              ></Stack.Screen>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </CounterProvider>
+    </Provider>
+  ); //end return
 } // end Home
 
 // EXPORT
@@ -109,12 +136,15 @@ const HomeScreen = ({navigation, route}) => {
   // RETURN
   return (
     <View style={styles.main}>
+      {/* /////////////////////////////////////////////////////////////////////////// */}
+
       {/* Header */}
       <View style={styles.header}>
         <TextInput placeholder="Arama" style={styles.searchInput} />
         <Text style={styles.viewAll}>view all</Text>
       </View>
 
+      {/* /////////////////////////////////////////////////////////////////////////// */}
       {/*  Populer Category */}
       <View style={styles.categoryContainer}>
         {/*  Populer Category:1 */}
@@ -157,7 +187,9 @@ const HomeScreen = ({navigation, route}) => {
         </TouchableOpacity>
       </View>
 
-      {/* Component */}
+      {/* /////////////////////////////////////////////////////////////////////////// */}
+      {/* CARD */}
+      {/* Component-1 */}
       <ScrollView horizontal={true} style={styles.componentContainer}>
         {/* Counter Class Component-1 */}
         <View style={styles.componentCard}>
@@ -174,11 +206,16 @@ const HomeScreen = ({navigation, route}) => {
                 width: '100%',
                 height: '100%',
                 borderRadius: 10,
-                backgroundColor: '#cccccc', // for testing purposes only
+                backgroundColor: '#000', // for testing purposes only
               }}
             />
+            {/* <Text></Text> */}
           </TouchableOpacity>
-          <Text style={styles.componentText}>Counter Class Component</Text>
+
+          {/* Blur Effect */}
+          <BlurView style={styles.absolute} blurType="light" blurAmount={10}>
+            <Text style={styles.componentText}>Counter Class Component</Text>
+          </BlurView>
         </View>
 
         {/* Counter Function Component-2 */}
@@ -190,8 +227,18 @@ const HomeScreen = ({navigation, route}) => {
             />
           </TouchableOpacity>
           <Text style={styles.componentText}>Counter Function Component</Text>
-        </View>
 
+          {/* Blur Effect */}
+          <BlurView style={styles.absolute} blurType="light" blurAmount={10}>
+            <Text style={styles.componentText}>Counter Function Component</Text>
+          </BlurView>
+        </View>
+      </ScrollView>
+
+      {/* /////////////////////////////////////////////////////////////////////////// */}
+      {/* CARD */}
+      {/* Component-1 */}
+      <ScrollView horizontal={true} style={styles.componentContainer}>
         {/* Counter Function Component-3 Hooks */}
         <View style={styles.componentCard}>
           <TouchableOpacity
@@ -205,7 +252,38 @@ const HomeScreen = ({navigation, route}) => {
               style={styles.componentImage}
             />
           </TouchableOpacity>
-          <Text style={styles.componentText}>Counter Function  Hooks</Text>
+
+          {/* Blur Effect */}
+          <BlurView style={styles.absolute} blurType="light" blurAmount={10}>
+            <Text style={styles.componentText}>Counter Function Hooks</Text>
+          </BlurView>
+        </View>
+
+        {/* Counter Function Redux Context Props Component-4 Hooks */}
+        <View style={styles.componentCard}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('CounterReduxContextPropsFunctionHooks', {
+                name: 'CounterReduxContextPropsFunctionHooks',
+
+
+                // Passing parameters
+                initialCount: '0',
+                modalMessage: 'Sayaç değeri hedefe ulaştı!',
+              })
+            }>
+            <Image
+              source={require('../assets/mobil.webp')}
+              style={styles.componentImage}
+            />
+          </TouchableOpacity>
+
+          {/* Blur Effect */}
+          <BlurView style={styles.absolute} blurType="light" blurAmount={10}>
+            <Text style={styles.componentText}>
+              Counter Redux Context Props
+            </Text>
+          </BlurView>
         </View>
       </ScrollView>
     </View>
@@ -279,6 +357,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: '10px',
   },
+
   searchInput: {
     flex: 1,
     borderColor: 'gray',
@@ -327,13 +406,34 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#cccccc', // for testing purposes only
   },
+
+  absolute: {
+    position: 'absolute',
+    top: 130,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
   componentText: {
     position: 'absolute',
-    bottom: 10,
-    left: 10,
-    color: 'blue',
-    fontSize: 13,
+    bottom: 4,
+    left: 22,
+    fontSize: 10,
+    color: 'rgba(0,0,0,.6)',
+    padding: 2,
+    borderRadius: 10,
   },
+  // componentText: {
+  //   position: 'absolute',
+  //   bottom: 4,
+  //   left: 10,
+  //   fontSize: 10,
+  //   color: 'white',
+  //   backgroundColor:"black",
+  //   padding:5,
+  //   opacity:0.8,
+  //   borderRadius: 10,
+  // },
 }); // end styles
 
 //   container: {

@@ -283,3 +283,52 @@ Xcode açalım ve Info.plist dosyasına şu satırları ekleyin
 */ 
 
 //"eslint": "^8.19.0",
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+-- BLUR => Hem Android hemde IOS tarafından  çalışır
+
+$ BLUR NPM
+npm install @react-native-community/blur
+
+-- KULLANILIŞI
+<BlurView 
+  style={styles.absolue}
+  blurType="light"
+  blurAmount={10}
+ >
+ <Text style={styles.componentText}>Data</Text> 
+ </BlurView>
+
+ absolute:{
+  position: 'absolute',
+  top:0,
+  left: 0,
+  bottom:0,
+  right:0,
+  }
+  componentText:{
+    fonstSize:8,
+    color:'white',
+    padding:5,
+    borderRadiuse:10
+  }
+ }
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+--
+$ REDUX 
+npm install redux react-redux
+
+Context API, Redux ekleyerek daha esnek ve geniş kapsamlı durum yönetimi sağlayabiliriz.
+Bu yapı uygulamamızı modüler , yeniden kullanabilirliği sağlayacaktır.
+
+Context API: Ek bilgileri sağlayacağız.
+Redux : Redux kütüphanesini kullanarak yapılandıracağız.
+
+
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+--
